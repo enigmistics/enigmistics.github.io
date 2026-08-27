@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy — Enigmistics</title>
+  <meta name="description" content="Informativa sulla privacy dell'applicazione Enigmistics.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <style>
+    /* ── Tokens ── */
+    :root {
+      --bg:         #FDFCF9;
+      --text:       #211410;
+      --text-muted: #8C7068;
+      --brand:      #1A0F06;
+      --accent:     #BD5338;
+      --rule:       #D4C8C0;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        --bg:         #160A07;
+        --text:       #EEE5DF;
+        --text-muted: #9A8278;
+        --brand:      #EEE5DF;
+        --accent:     #D4784E;
+        --rule:       #3A2820;
+      }
+    }
+
+    :root[data-theme="dark"] {
+      --bg:         #160A07;
+      --text:       #EEE5DF;
+      --text-muted: #9A8278;
+      --brand:      #EEE5DF;
+      --accent:     #D4784E;
+      --rule:       #3A2820;
+    }
+
+    /* ── Reset ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 16px; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Libre Baskerville', Georgia, serif;
+      line-height: 1.65;
+    }
+
+    /* ── Nav ── */
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 22px 40px;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .nav-logo {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--brand);
+      letter-spacing: 0.04em;
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.8125rem;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+
+    .nav-links a:hover { color: var(--brand); }
+    .nav-links a[aria-current] { color: var(--accent); }
+    .nav-links a:focus-visible { outline: 2px solid var(--brand); outline-offset: 3px; border-radius: 2px; }
+
+    /* ── Layout ── */
+    .wrap {
+      max-width: 660px;
+      margin: 0 auto;
+      padding: 52px 40px 80px;
+    }
+
+    /* ── Document title ── */
+    h1 {
+      font-size: clamp(1.5rem, 4vw, 2rem);
+      font-weight: 700;
+      color: var(--accent);
+      line-height: 1.25;
+      text-wrap: balance;
+      margin-bottom: 8px;
+    }
+
+    .doc-meta {
+      font-size: 0.8125rem;
+      color: var(--text-muted);
+      margin-bottom: 44px;
+      letter-spacing: 0.02em;
+    }
+
+    /* ── Sections ── */
+    section {
+      margin-bottom: 6px;
+      padding-bottom: 6px;
+      /* border-bottom: 1px solid var(--rule); */
+    }
+
+    section:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+    }
+
+    h2 {
+      font-size: 0.9375rem;
+      font-weight: 700;
+      color: var(--accent);
+      /* text-transform: uppercase; */
+      letter-spacing: 0.08em;
+      /* margin-bottom: 14px; */
+    }
+
+    p {
+      font-size: 0.9375rem;
+      color: var(--text);
+      max-width: 60ch;
+      margin-bottom: 12px;
+    }
+
+    p:last-child { margin-bottom: 0; }
+
+    a {
+      color: var(--accent);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    a:hover { opacity: 0.75; }
+    a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 2px; }
+
+    @media (max-width: 600px) {
+      nav   { padding: 18px 20px; }
+      .wrap { padding: 40px 20px 64px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * { transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- <nav>
+    <a class="nav-logo" href="/">Enigmistics</a>
+    <ul class="nav-links">
+      <li><a href="/#giochi">Giochi</a></li>
+      <li><a href="/privacy.html" aria-current="page">Privacy</a></li>
+      <li><a href="mailto:enigmistics.app@gmail.com">Contatti</a></li>
+    </ul>
+  </nav> -->
+
+  <main>
+    <div class="wrap">
+
+      <h1>Informativa sulla privacy</h1>
+      <p class="doc-meta">Ultimo aggiornamento: agosto 2026</p>
+
+      <section>
+        <h2>Raccolta dei dati</h2>
+        <p>
+          Enigmistics non raccoglie, trasmette né conserva dati personali su server esterni.
+          L'unico dato memorizzato è il progresso del giocatore — soluzioni inserite e stato dei puzzle —
+          salvato esclusivamente sul dispositivo dell'utente tramite archiviazione locale
+          e non accessibile da terzi.
+        </p>
+      </section>
+
+      <section>
+        <h2>Analisi e tracciamento</h2>
+        <p>
+          Non vengono utilizzati strumenti di analisi, tracciamento o profilazione.
+          L'applicazione non richiede registrazione né accede a dati del dispositivo
+          oltre a quelli strettamente necessari al proprio funzionamento (ovvero, come già indicato, i file di salvataggio del progresso).
+        </p>
+      </section>
+
+      <section>
+        <h2>Acquisti in-app</h2>
+        <p>
+          Gli acquisti in-app sono gestiti tramite i sistemi di pagamento di Apple (App Store)
+          e Google (Google Play). Enigmistics non riceve né conserva dati relativi a carte di credito
+          o altri strumenti di pagamento.
+        </p>
+      </section>
+
+      <section>
+        <h2>Contatto</h2>
+        <p>
+          Per qualsiasi domanda relativa alla privacy di questa applicazione potete scrivere a
+          <a href="mailto:enigmistics.app@gmail.com">enigmistics.app@gmail.com</a>.
+        </p>
+        <!-- <p>Titolare del trattamento: Federico Mor.</p> -->
+      </section>
+
+    </div>
+  </main>
+
+</body>
+</html>

@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Enigmistics</title>
+  <meta name="description" content="Giochi enigmistici e puzzle logici. Parole crociate, sudoku e molto altro — con varianti originali pensate per stimolare la mente.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <style>
+    /* ── Tokens ── */
+    :root {
+      --bg:          #FDFCF9;
+      --text:        #211410;
+      --text-muted:  #8C7068;
+      --brand:       #1A0F06;
+      --rule:        #D4C8C0;
+
+      --c-crosswords:  #5B184B;
+      --c-sudoku:      #1A4354;
+      --c-logic:       #35667A;
+      --c-words:       #326143;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        --bg:          #160A07;
+        --text:        #EEE5DF;
+        --text-muted:  #9A8278;
+        --brand:       #EEE5DF;
+        --rule:        #3A2820;
+
+        --c-crosswords:  #9E5090;
+        --c-sudoku:      #4A8FAA;
+        --c-logic:       #6BA0B8;
+        --c-words:       #5FA07A;
+      }
+    }
+
+    :root[data-theme="dark"] {
+      --bg:          #160A07;
+      --text:        #EEE5DF;
+      --text-muted:  #9A8278;
+      --brand:       #EEE5DF;
+      --rule:        #3A2820;
+
+      --c-crosswords:  #9E5090;
+      --c-sudoku:      #4A8FAA;
+      --c-logic:       #6BA0B8;
+      --c-words:       #5FA07A;
+    }
+
+    /* ── Reset ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 16px; scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Libre Baskerville', Georgia, serif;
+    }
+
+    /* ── Nav ── */
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 40px;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .nav-logo {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--brand);
+      letter-spacing: 0.04em;
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.8125rem;
+      /* font-style: italic; */
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+
+    .nav-links a:hover { color: var(--brand); }
+    .nav-links a:focus-visible { outline: 2px solid var(--brand); outline-offset: 3px; border-radius: 2px; }
+
+    /* ── Hero ── */
+    .hero {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 80px 40px 72px;
+      text-align: center;
+    }
+
+    .hero h1 {
+      font-size: clamp(3rem, 9vw, 5.5rem);
+      font-weight: 700;
+      color: var(--brand);
+      line-height: 1.05;
+      letter-spacing: -0.015em;
+      text-wrap: balance;
+      margin-bottom: 28px;
+    }
+
+    .hero-desc {
+      font-size: clamp(0.9375rem, 2.2vw, 1.125rem);
+      color: var(--text-muted);
+      line-height: 1.65;
+      max-width: 52ch;
+      margin: 0 auto 44px;
+      text-wrap: balance;
+    }
+
+    .hero-desc em { font-style: italic; 
+      /* color: var(--text);  */
+    }
+
+    /* ── Store buttons ── */
+    .download-group {
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      padding: 12px 22px;
+      border-radius: 5px;
+      font-size: 0.875rem;
+      font-weight: 700;
+      text-decoration: none;
+      letter-spacing: 0.01em;
+      transition: opacity 0.15s, transform 0.12s;
+    }
+
+    .btn:hover  { opacity: 0.82; transform: translateY(-1px); }
+    .btn:active { transform: translateY(0); }
+    .btn:focus-visible { outline: 2px solid var(--brand); outline-offset: 3px; }
+
+    .btn-primary   { background: var(--brand); color: var(--bg); border: 2px solid var(--brand); }
+    .btn-secondary { background: transparent;  color: var(--brand); border: 2px solid var(--brand); }
+    .btn-icon { width: 17px; height: 17px; fill: currentColor; flex-shrink: 0; }
+
+    /* ── Section divider with inline label ── */
+    .section-rule {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 0 40px;
+      max-width: 920px;
+      margin: 0 auto;
+    }
+
+    .section-rule::before,
+    .section-rule::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--brand);
+    }
+
+    .section-rule span {
+      font-size: 0.6875rem;
+      font-weight: 700;
+      color: var(--brand);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      white-space: nowrap;
+    }
+
+    /* ── Games grid ── */
+    .games {
+      padding: 4px 40px 72px;
+    }
+
+    .games-inner {
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    .games-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-top: 36px;
+    }
+
+    .game-card {
+      border: 1px solid var(--rule);
+      border-radius: 5px;
+      padding: 22px 24px 26px;
+    }
+
+    .game-card h3 {
+      font-size: 1.775rem;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 10px;
+    }
+
+    .game-card p {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    .card-crosswords h3 { color: var(--c-crosswords); }
+    .card-sudoku    h3 { color: var(--c-sudoku); }
+    .card-logic     h3 { color: var(--c-logic); }
+    .card-words     h3 { color: var(--c-words); }
+
+    /* ── Responsive ── */
+    @media (max-width: 600px) {
+      nav    { padding: 18px 20px; }
+      .hero  { padding: 52px 20px 52px; }
+      .games { padding: 40px 20px 60px; }
+      .section-rule { padding: 0 20px; }
+      .games-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ── Footer ── */
+    .site-footer {
+      border-top: 1px solid var(--rule);
+      padding: 28px 40px;
+      max-width: 920px;
+      margin: 0 auto;
+    }
+
+    .site-footer p {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      max-width: 60ch;
+    }
+
+    @media (max-width: 600px) {
+      .site-footer { padding: 24px 20px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .btn { transition: none; }
+      html { scroll-behavior: auto; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a class="nav-logo" href="/">Enigmistics</a>
+    <ul class="nav-links">
+      <li><a href="#giochi">Giochi</a></li>
+      <li><a href="/privacy.html">Privacy</a></li>
+      <li><a href="mailto:enigmistics.app@gmail.com">Contatti</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <section class="hero">
+      <h1>Enigmistics</h1>
+      <p class="hero-desc">
+        Giochi enigmistici tradizionali e puzzle logici,
+        arricchiti da varianti per stimolare ulteriormente la mente dei solutori; tutto
+        aggiornato con frequenza regolare
+      </p>
+      <div class="download-group">
+        <a class="btn btn-primary" href="#" aria-label="Scarica su App Store">
+          <svg class="btn-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+          </svg>
+          App Store<br>(disponibile a breve)
+        </a>
+        <a class="btn btn-secondary" href="#" aria-label="Scarica su Google Play">
+          <svg class="btn-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M3 20.5v-17c0-.83.94-1.3 1.6-.8l14 8.5c.6.37.6 1.23 0 1.6l-14 8.5c-.66.5-1.6.03-1.6-.8zM5 7.14V16.86L16.01 12 5 7.14z"/>
+          </svg>
+          Google Play<br>(disponibile a breve)
+        </a>
+      </div>
+    </section>
+
+    <div class="section-rule" id="giochi">
+      <span>Cosa trovi nell'app?</span>
+    </div>
+
+    <section class="games">
+      <div class="games-inner">
+        <div class="games-grid">
+
+          <div class="game-card card-crosswords">
+            <h3>Parole crociate</h3>
+            <p>Classiche, di varie dimensioni e pattern,  crittografate, senza schema, e infine con varianti bifrontali, stenografiche, e a rotazione circolare</p>
+          </div>
+
+          <div class="game-card card-sudoku">
+            <h3>Sudoku</h3>
+            <p>Classici, ma non troppo, con infatti dimensioni 2x3 e 3x3 ma anche 2x4, 3x4 e 4x4, insieme a varianti kropki, pari/dispari, e consecutivo</p>
+          </div>
+
+          <div class="game-card card-logic">
+            <h3>Giochi di logica</h3>
+            <p>Grattacieli: un ulteriore variante del gioco del sudoku, e Abbicì: un gioco di incastri, proposto in versione sia classica, ABC, sia estesa, dove subentra anche la D</p>
+          </div>
+
+          <div class="game-card card-words">
+            <h3>Giochi di parole</h3>
+            <p>Sia classici come anagrammi, palindromi, ecc, sia di pura curiosità come pangrammi, abbecedari, o tautogrammi, estratti dalle più famose opere di letteratura</p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- <footer>
+    <div class="site-footer">
+      <p>© 2026 Federico A. Mor. All rights reserved. The puzzle content in this repository is proprietary. It is made publicly accessible for the sole purpose of serving the Enigmistics app. No reproduction, distribution, or use of this content is permitted without explicit written permission from the author.</p>
+    </div>
+  </footer> -->
+
+</body>
+</html>
