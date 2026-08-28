@@ -13,7 +13,8 @@
     :root {
       --bg:          #FDFCF9;
       --text:        #211410;
-      --text-muted:  #8C7068;
+      /* --text-muted:  #8C7068; */
+      --text-muted:  #3c3c3c;
       --brand:       #1A0F06;
       --rule:        #D4C8C0;
 
@@ -27,7 +28,8 @@
       :root:not([data-theme="light"]) {
         --bg:          #160A07;
         --text:        #EEE5DF;
-        --text-muted:  #9A8278;
+        /* --text-muted:  #9A8278; */
+        --text-muted:  #3c3c3c;
         --brand:       #EEE5DF;
         --rule:        #3A2820;
 
@@ -41,7 +43,8 @@
     :root[data-theme="dark"] {
       --bg:          #160A07;
       --text:        #EEE5DF;
-      --text-muted:  #9A8278;
+      /* --text-muted:  #9A8278; */
+      --text-muted:  #3c3c3c;
       --brand:       #EEE5DF;
       --rule:        #3A2820;
 
@@ -227,7 +230,8 @@
     @media (max-width: 600px) {
       nav    { padding: 18px 20px; }
       .hero  { padding: 52px 20px 52px; }
-      .games { padding: 40px 20px 60px; }
+      .games { padding: 8px 20px 60px; }
+      .games-grid { margin-top: 16px; }
       .section-rule { padding: 0 20px; }
       .games-grid { grid-template-columns: 1fr; }
     }
@@ -264,6 +268,7 @@
     <ul class="nav-links">
       <li><a href="#giochi">Giochi</a></li>
       <li><a href="/privacy.html">Privacy</a></li>
+      <li><a href="/license.html">Licenza</a></li>
       <li><a href="mailto:enigmistics.app@gmail.com">Contatti</a></li>
     </ul>
   </nav>
@@ -302,7 +307,7 @@
 
           <div class="game-card card-crosswords">
             <h3>Parole crociate</h3>
-            <p>Classiche, di varie dimensioni e pattern,  crittografate, senza schema, e infine con varianti bifrontali, stenografiche, e a rotazione circolare</p>
+            <p>Classiche, con varie dimensioni e pattern,  crittografate, senza schema, e infine con varianti bifrontali, stenografiche, e a rotazione circolare</p>
           </div>
 
           <div class="game-card card-sudoku">
@@ -312,7 +317,7 @@
 
           <div class="game-card card-logic">
             <h3>Giochi di logica</h3>
-            <p>Grattacieli: un ulteriore variante del gioco del sudoku, e Abbicì: un gioco di incastri, proposto in versione sia classica, ABC, sia estesa, dove subentra anche la D</p>
+            <p>Grattacieli: un ulteriore variante del gioco del sudoku, e Abbicì: un gioco di incastri proposto sia in versione classica, ABC, sia estesa, dove subentra anche la D</p>
           </div>
 
           <div class="game-card card-words">
