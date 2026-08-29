@@ -13,10 +13,12 @@
       --text:        #211410;
       --muted:       #8C7068;
       --rule:        #D4C8C0;
-      --found:       #2E6B45;
-      --found-bg:    #EBF5EF;
-      /* --missing-br:  #C8BDB7; */
-      --missing-br:  #b41f29;
+      --found:        #2E6B45;
+      --found-bg:     #EBF5EF;
+      --missing-br:   #C8BDB7;
+      --missing-true: #b41f29;
+      /* --missing-br:  #b41f29; */
+      --accent:      #5B184B;
       --c-cross:     #5B184B;
       --c-sudoku:    #1A4354;
       --c-logic:     #35667A;
@@ -168,6 +170,13 @@
     .btn-check:hover    { opacity: 0.75; }
     .btn-check:disabled { opacity: 0.4; cursor: default; }
 
+    .ver-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--accent);
+      letter-spacing: 0.04em;
+    }
+
     .timestamp {
       font-size: 0.75rem;
       color: var(--muted);
@@ -271,6 +280,11 @@
 
     tbody tr:last-child td { border-bottom: none; }
 
+    thead th.col-current,
+    tbody td.col-current {
+      border-right: 2px solid var(--accent);
+    }
+
     /* ── Status dots ── */
     .dot {
       display: inline-block;
@@ -292,6 +306,10 @@
     .dot.missing {
       background: transparent;
       border: 1.5px solid var(--missing-br);
+    }
+
+    .dot.missing-true {
+      background: var(--missing-true);
     }
 
     @keyframes pulse {
@@ -342,6 +360,7 @@
       <input type="range" id="to-input"   min="1" max="20" value="5">
     </div>
     <button class="btn-check" id="run-btn">Controlla</button>
+    <span class="ver-label" id="ver-label"></span>
     <span class="timestamp" id="ts"></span>
   </div>
 
@@ -352,7 +371,8 @@
 
   <div class="legend">
     <div class="legend-item"><span class="dot found"></span> presente</div>
-    <div class="legend-item"><span class="dot missing"></span> mancante</div>
+    <div class="legend-item"><span class="dot missing-true"></span> mancante</div>
+    <div class="legend-item"><span class="dot missing"></span> fuori range</div>
     <div class="legend-item"><span class="dot checking"></span> in verifica</div>
   </div>
 
@@ -464,7 +484,10 @@
         // Head row
         const thead = document.createElement('thead');
         let headHtml = '<tr><th>Tipo</th>';
-        for (let ed = from; ed <= to; ed++) headHtml += `<th>Ed. ${ed}</th>`;
+        for (let ed = from; ed <= to; ed++) {
+          const cls = (latestVersion !== null && ed === latestVersion) ? ' class="col-current"' : '';
+          headHtml += `<th${cls}>Ed. ${ed}</th>`;
+        }
         headHtml += '</tr>';
         thead.innerHTML = headHtml;
         table.appendChild(thead);
@@ -475,7 +498,8 @@
           const tr = document.createElement('tr');
           let rowHtml = `<td>${type}</td>`;
           for (let ed = from; ed <= to; ed++) {
-            rowHtml += `<td><span class="dot checking" id="${cellId(cat.id, type, ed)}" title="${cat.folder}/${type}_${ed}.json"></span></td>`;
+            const cls = (latestVersion !== null && ed === latestVersion) ? ' class="col-current"' : '';
+            rowHtml += `<td${cls}><span class="dot checking" id="${cellId(cat.id, type, ed)}" title="${cat.folder}/${type}_${ed}.json"></span></td>`;
           }
           tr.innerHTML = rowHtml;
           tbody.appendChild(tr);
@@ -532,7 +556,9 @@
                 const dot = document.getElementById(id);
                 if (dot) {
                   dot.classList.remove('checking');
-                  dot.classList.add(ok ? 'found' : 'missing');
+                  const missingClass = (!ok && latestVersion !== null && ed <= latestVersion + 1)
+                    ? 'missing-true' : 'missing';
+                  dot.classList.add(ok ? 'found' : missingClass);
                 }
                 if (ok) found++;
                 // update summary live
@@ -592,13 +618,24 @@
 
     updateFill();
 
+    // ── Load version from manifest, then auto-run ─────────────────────────────
+    let latestVersion = null;
+
+    fetch('contents/manifest.json', { cache: 'no-cache' })
+      .then(r => r.json())
+      .then(m => {
+        if (m && m.latest != null) {
+          latestVersion = m.latest;
+          document.getElementById('ver-label').textContent = `v${m.latest}`;
+        }
+      })
+      .catch(() => {})
+      .finally(() => { runChecks(); });
+
     // Warn if on file://
     if (location.protocol === 'file:') {
       document.getElementById('warn').style.display = 'block';
     }
-
-    // Auto-run on load
-    runChecks();
   </script>
 
 </body>
