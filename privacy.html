@@ -30,13 +30,14 @@
       line-height: 1.65;
     }
 
-    /* ── Nav ── */
+/* ── Nav ── */
     nav {
       display: flex;
       align-items: center;
       justify-content: space-between;
       padding: 16px 40px;
       border-bottom: 1px solid var(--rule);
+      line-height: 1;
     }
 
     .nav-logo {
@@ -56,14 +57,15 @@
 
     .nav-links a {
       font-size: 0.8125rem;
-      /* font-style: italic; */
-      color: var(--text-muted);
+      color: var(--brand);
       text-decoration: none;
       transition: color 0.15s;
     }
 
     .nav-links a:hover { color: var(--brand); }
     .nav-links a:focus-visible { outline: 2px solid var(--brand); outline-offset: 3px; border-radius: 2px; }
+    .nav-links a[aria-current="page"] { color: var(--accent); }
+
 
     /* ── Layout ── */
     .wrap {
@@ -135,14 +137,10 @@
 
     /* ── Responsive ── */
     @media (max-width: 600px) {
-      nav    { flex-direction: column; align-items: center; gap: 2px; padding: 14px 20px; }
+      nav { flex-direction: column; align-items: center; gap: 2px; padding: 14px 20px; }
       .nav-links { gap: 16px; margin-right: 0; }
       .nav-links a { font-size: 0.75rem; }
-      .hero  { padding: 52px 20px 52px; }
-      .games { padding: 8px 20px 60px; }
-      .games-grid { margin-top: 16px; }
-      .section-rule { padding: 0 20px; }
-      .games-grid { grid-template-columns: 1fr; }
+      .wrap { padding: 36px 20px 60px; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -155,11 +153,12 @@
   <nav>
     <a class="nav-logo" href="/">Enigmistics</a>
     <ul class="nav-links">
-      <!-- <li><a href="/#giochi">Giochi</a></li> -->
-      <!-- <li><a href="/privacy.html" aria-current="page">Privacy</a></li> -->
-      <!-- <li><a href="mailto:enigmistics.app@gmail.com">Contatti</a></li> -->
+      <li><a href="/#giochi">Giochi</a></li>
+      <li><a href="/privacy.html" aria-current="page">Privacy</a></li>
+      <li><a href="/license.html">Licenza</a></li>
+      <li><a href="mailto:enigmistics.app@gmail.com">Contatti</a></li>
     </ul>
-  </nav> 
+  </nav>
 
   <main>
     <div class="wrap">
