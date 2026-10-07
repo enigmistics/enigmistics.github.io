@@ -213,8 +213,22 @@
       text-wrap: balance;
     }
 
+    /* What the weekly edition gives everyone, and what Pro adds. Shares the
+       geometry of .games-note but drops the italic: that one is an aside, this
+       is information people act on. */
+    .access-note {
+      font-size: clamp(0.875rem, 2vw, 1rem);
+      color: var(--text-muted);
+      line-height: 1.65;
+      max-width: 58ch;
+      margin: 18px auto 0px;
+      text-align: center;
+      text-wrap: balance;
+    }
+
     @media (max-width: 600px) {
-      .games-note { margin-top: 26px; }
+      .games-note  { margin-top: 26px; }
+      .access-note { margin-top: 14px; }
     }
 
     /* ── Screenshot grid ── */
@@ -401,7 +415,11 @@
         </div>
 
         <p class="games-note">
-          Design moderno; niente pubblicità; funziona anche offline; più di quaranta giochi in un'unica app; sudoku e giochi di logica sempre risolvibili per sola deduzione; parole crociate senza definizioni troppo astruse. Un lavoretto coi fiocchi. 
+          Design moderno; niente pubblicità; funziona anche offline; più di quaranta giochi in un'unica app; sudoku e giochi di logica sempre risolvibili per sola deduzione; parole crociate senza definizioni troppo astruse. Un lavoretto coi fiocchi.
+        </p>
+
+        <p class="access-note">
+          Ogni venerdì una nuova edizione, con qualche gioco sempre libero. Con Enigmistics Pro si sbloccano tutti, insieme all'archivio completo delle edizioni passate.
         </p>
       </div>
     </section>
