@@ -200,11 +200,14 @@
       /* font-size: 0.875rem;
       color: var(--text-muted);
       line-height: 1.6; */
-      font-size: clamp(0.9375rem, 2.2vw, 1.125rem);
-      font-style: italic;
+      /* font-size: 0.935rem; */
+      font-size: clamp(0.875rem, 1.6vw, 0.975rem);
+      /* font-size: clamp(0.9375rem, 2.2vw, 1.125rem); */
+      /* font-size: clamp(0.9375rem, 2.2vw, 1.125rem); */
+      /*font-style: italic;*/
       color: var(--text-muted);
       line-height: 1.65;
-      max-width: 60ch;
+      max-width: 66ch;
       /* The horizontal `auto` is what centres the block: with max-width 60ch
          inside an 860px container, setting it to 0 pins the box flush left and
          the centred text goes with it. Keep `auto`; vary only top and bottom. */
@@ -213,22 +216,8 @@
       text-wrap: balance;
     }
 
-    /* What the weekly edition gives everyone, and what Pro adds. Shares the
-       geometry of .games-note but drops the italic: that one is an aside, this
-       is information people act on. */
-    .access-note {
-      font-size: clamp(0.875rem, 2vw, 1rem);
-      color: var(--text-muted);
-      line-height: 1.65;
-      max-width: 58ch;
-      margin: 18px auto 0px;
-      text-align: center;
-      text-wrap: balance;
-    }
-
     @media (max-width: 600px) {
-      .games-note  { margin-top: 26px; }
-      .access-note { margin-top: 14px; }
+      .games-note { margin-top: 26px; }
     }
 
     /* ── Screenshot grid ── */
@@ -311,6 +300,18 @@
     .card-logic     h3 { color: var(--c-logic); }
     .card-words     h3 { color: var(--c-words); }
 
+    /* The "how it works" card, full width under the four categories. `1 / -1`
+       rather than `span 2` so it still spans correctly once the grid collapses
+       to a single column below 600px. Ink rather than one of the four section
+       hues: it explains the catalogue above it, so it should not read as a
+       fifth category. */
+    .card-howto {
+      grid-column: 1 / -1;
+    }
+
+    /* .card-howto h3 { color: var(--brand); } */
+    .card-howto h3 { color: #585453; }
+
     /* ── Responsive ── */
     @media (max-width: 600px) {
       nav    { flex-direction: column; align-items: center; gap: 2px; padding: 14px 20px; }
@@ -366,7 +367,7 @@
     <section class="hero">
       <h1>Enigmistics</h1>
       <p class="hero-desc">
-        Giochi enigmistici tradizionali e puzzle logici, arricchiti da varianti per mettere alla prova i tuoi neuroni. Nuova edizione ogni venerdì.
+        Tutta l'enigmistica - classica e varianti - in un'unica app, con nuovi giochi ogni settimana
       </p>
       <div class="download-group">
         <a class="btn btn-primary" href="#" aria-label="Scarica su App Store">
@@ -394,33 +395,35 @@
 
           <div class="game-card card-crosswords">
             <h3>Parole crociate</h3>
-            <p>Classiche di varie dimensioni, crittografate, senza schema, e infine varianti bifrontali, stenografiche, cicliche e a variazione d'estremi</p>
+            <p>Classiche di varie dimensioni, crittografate, senza schema, samurai e a scacchiera; poi le varianti bifrontali, stenografiche, cicliche e con libertà... estrema, e persino schemi in inglese</p>
           </div>
 
           <div class="game-card card-sudoku">
             <h3>Sudoku</h3>
-            <p>Classici, ma non troppo, con infatti dimensioni 2x3 e 3x3 ma anche 2x4, 3x4 e 4x4, insieme a varianti kropki, pari/dispari e consecutivo</p>
+            <p>Classici, ma non troppo: oltre ai 2x3 e 3x3, ci sono anche 2x4, 3x4 e 4x4, insieme alle varianti kropki, pari/dispari e consecutive</p>
           </div>
 
           <div class="game-card card-logic">
             <h3>Giochi di logica</h3>
-            <p>Grattacieli, un ulteriore variante del gioco del sudoku, e Abbicì, un gioco di incastri proposto in versione sia classica sia estesa, con anche la D</p>
+            <p>Grattacieli, un'ulteriore variante del sudoku, e Abbicì, un gioco di incastri proposto in versione sia classica sia estesa, con anche la D</p>
           </div>
 
           <div class="game-card card-words">
             <h3>Giochi di parole</h3>
-            <p>Anagrammi, palindromi, pangrammi, abbecedari, tautogrammi e molti altri, estratti dalle più famose opere letterarie</p>
+            <p>Anagrammi, palindromi, pangrammi, abbecedari, tautogrammi e altri ancora, tratti dalle più famose opere letterarie, insieme alla stimolante sezione del "pensiero laterale"</p>
+          </div>
+
+          <div class="game-card card-howto">
+            <h3>Come funziona?</h3>
+            <p>Ogni venerdì pubblichiamo una nuova edizione: un'intera serie di giochi, freschi di stampa (per modo di dire). Una parte è disponibile a tutti; il resto, archivio compreso, è riservato alla versione Pro. Ma niente paura: l'abbonamento mensile costa meno di un singolo numero settimanale di una classica rivista di enigmistica. Giusto il minimo indispensabile per tenere Anna Gramma lontana dai sindacati.</p>
           </div>
 
         </div>
 
-        <p class="games-note">
-          Design moderno; niente pubblicità; funziona anche offline; più di quaranta giochi in un'unica app; sudoku e giochi di logica sempre risolvibili per sola deduzione; parole crociate senza definizioni troppo astruse. Un lavoretto coi fiocchi.
-        </p>
+        <!-- <p class="games-note">
+          Design moderno; niente pubblicità; funziona anche offline; quarantadue giochi, tra classici e varianti, in un'unica app. Un lavoretto coi fiocchi, insomma; ma d'altronde, con una redazione che vanta firme come Ines Atto, Vera Ticale, Sue Doku e Paul Indromo, c'era da aspettarselo.
+        </p> -->
 
-        <p class="access-note">
-          Ogni venerdì una nuova edizione, con qualche gioco sempre libero. Con Enigmistics Pro si sbloccano tutti, insieme all'archivio completo delle edizioni passate.
-        </p>
       </div>
     </section>
 
