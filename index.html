@@ -56,6 +56,13 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { font-size: 16px; scroll-behavior: smooth; }
 
+    /* Wider screens get a larger root size: nearly every size on the page is in
+       rem, so the whole layout grows in proportion, while phones (below 900px)
+       keep exactly the sizes they had. Paired with the wider containers below,
+       which stops the page reading as a small island in a large window. */
+    @media (min-width: 900px)  { html { font-size: 17.5px; } }
+    @media (min-width: 1280px) { html { font-size: 19px; } }
+
     body {
       background: var(--bg);
       color: var(--text);
@@ -100,7 +107,7 @@
 
     /* ── Hero ── */
     .hero {
-      max-width: 720px;
+      max-width: 880px;
       margin: 0 auto;
       padding: 80px 40px 72px;
       text-align: center;
@@ -117,10 +124,10 @@
     }
 
     .hero-desc {
-      font-size: clamp(0.9375rem, 2.2vw, 1.125rem);
+      font-size: clamp(0.9375rem, 2.2vw, 1.25rem);
       color: var(--text-muted);
       line-height: 1.65;
-      max-width: 52ch;
+      max-width: 56ch;
       margin: 0 auto 44px;
       text-wrap: balance;
     }
@@ -221,20 +228,21 @@
     }
 
     /* ── Screenshot grid ── */
-    /* auto-fit rather than fixed column counts: with a 190px minimum track the
+    /* auto-fit rather than fixed column counts: with a 220px minimum track the
        browser picks 4 / 3 / 2 / 1 on its own as the viewport narrows, and the
        8 images reflow to 2 / 3 / 4 / 8 rows without a single media query.
-       The 920px max-width is what caps it at four — a fifth track would need
-       1014px of content box, which the container never reaches. */
+       The 1120px max-width is what caps it at four — a fifth track would need
+       1164px of content box (5·220 + 4·16), and the container's is 1040. If
+       either number changes, keep that inequality, or 8 images split 5 + 3. */
     .shots {
       padding: 4px 0 24px;
     }
 
     .shots-track {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
       gap: 16px;
-      max-width: 920px;
+      max-width: 1120px;
       margin: 0 auto;
       padding: 36px 40px 10px;
     }
@@ -265,7 +273,7 @@
     }
 
     .games-inner {
-      max-width: 860px;
+      max-width: 1040px;
       margin: 0 auto;
     }
 
@@ -324,6 +332,16 @@
       .games-grid { grid-template-columns: 1fr; }
     }
 
+    /* ── Wide screens ── */
+    /* Fuller cards and buttons from 900px up, in em/rem so they also follow the
+       larger root size set above. Below 900px nothing here applies. */
+    @media (min-width: 900px) {
+      .btn       { gap: 10px; padding: 0.8em 1.6em; font-size: 0.9375rem; }
+      .btn-icon  { width: 1.15em; height: 1.15em; }
+      .game-card { padding: 1.5rem 1.75rem 1.75rem; }
+      .game-card p { font-size: 0.9375rem; }
+    }
+
     /* ── Footer ── */
     .site-footer {
       border-top: 1px solid var(--rule);
@@ -367,7 +385,7 @@
     <section class="hero">
       <h1>Enigmistics</h1>
       <p class="hero-desc">
-        Tutta l'enigmistica - classica e varianti - in un'unica app, con nuovi giochi ogni settimana
+        Tutta l'enigmistica - classica e varianti - in un'unica app, con nuovi giochi ogni settimana!
       </p>
       <div class="download-group">
         <a class="btn btn-primary" href="#" aria-label="Scarica su App Store">
